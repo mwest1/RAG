@@ -39,7 +39,7 @@ def main():
         print(f"\n\nGenerating response using model: {model}")
         params['model'] = model
     ## unpack the params dicationry using the ** operator 
-        response = generate_with_single_input(params)
+        response = generate_with_single_input(**params)
         #print("Response:", response)
         ResponseTime= response['response_metadata']['total_duration']/1000000000
         print(f"Response time for model {model}: {ResponseTime} seconds")
