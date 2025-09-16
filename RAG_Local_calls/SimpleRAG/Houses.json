@@ -1,0 +1,24 @@
+ [
+    {
+        "address": "123 Maple Street",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62701",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "square_feet": 1500,
+        "price": 230000,
+        "year_built": 1998
+    },
+    {
+        "address": "456 Elm Avenue",
+        "city": "Shelbyville",
+        "state": "TN",
+        "zip": "37160",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "square_feet": 2500,
+        "price": 320000,
+        "year_built": 2005
+    }
+]

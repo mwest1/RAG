@@ -1,0 +1,11 @@
+[project]
+name = "rag-local-calls"
+version = "0.1.0"
+description = "Project to test RAG with calls to locally running LLM"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain-core>=0.3.76",
+    "langchain-ollama>=0.3.8",
+    "utils>=1.0.2",
+]
