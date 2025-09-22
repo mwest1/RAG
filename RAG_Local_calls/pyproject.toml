@@ -7,5 +7,9 @@ requires-python = ">=3.12"
 dependencies = [
     "langchain-core>=0.3.76",
     "langchain-ollama>=0.3.8",
+    "numpy>=2.3.3",
+    "pandas>=2.3.2",
+    "scikit-learn>=1.7.2",
+    "sentence-transformers>=5.1.0",
     "utils>=1.0.2",
 ]
