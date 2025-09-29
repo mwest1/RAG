@@ -5,8 +5,10 @@ description = "Project to test RAG with calls to locally running LLM"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "certifi>=2025.8.3",
     "langchain-core>=0.3.76",
     "langchain-ollama>=0.3.8",
+    "matplotlib>=3.10.6",
     "numpy>=2.3.3",
     "pandas>=2.3.2",
     "scikit-learn>=1.7.2",
