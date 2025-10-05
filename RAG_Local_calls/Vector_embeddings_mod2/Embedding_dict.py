@@ -11,12 +11,12 @@ def process_row(index,row,model):
     The model is passed in to ensure that the model is only loaded once. Without this, the processing is very slow as it is reloaded for each row.
     For any real application is is impractical as it was taking 5+ seconds per row. 
  
-
+    Returns a tuple of (index, result_dict) to avoid race conditions when updating the database.
     """
     text = row['text']
-    #category = row['category']
+    category = row['category']
     vector = model.encode(text)  # Generate embedding using pre-loaded model. 
-    return vector
+    return index, {'text': text, 'category': category, 'vector': vector}
 
 
 if __name__ == "__main__":

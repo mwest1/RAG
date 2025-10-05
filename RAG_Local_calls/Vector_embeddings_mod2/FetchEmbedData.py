@@ -10,6 +10,7 @@ from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 from CreateVectorDB import CreateVectorDB
 from concurrent.futures import ThreadPoolExecutor
 from sentence_transformers import SentenceTransformer 
+from CreateWeviate import create_weaviate_collection
 
 
 
@@ -63,14 +64,26 @@ def FetchEmbedData():
         _twenty_newsgroups._fetch_remote = lambda remote, dirname: patched_fetch_remote(remote, dirname, verify_ssl=False)
         news = fetch_20newsgroups(subset='train', shuffle=True, random_state=42)
     
+    # create a DF from the data to make it easier to work with. 
+    category_names = news.target_names
+    
     df = pd.DataFrame({'text': news.data, 'category': news.target})
- 
-    database = {}
+
+    # Add a 3rd column with the actual category name. This may be useful for metadata in the vector DB.
+    
+
+    for index, value in df['category'].items():
+        df.at[index, 'category_name'] = category_names[value]
+    
+
+    
+    # Load the model once, then pass it to the VectorDB creation function.
     model = SentenceTransformer('BAAI/bge-base-en-v1.5')
-    VectorDB = CreateVectorDB(database,df,model)
-    # print(f"Database sample entry:\n{database[0]}")
-    # print(f"Database size: {len(database)}")
-    print(VectorDB)
+    VectorDB = create_weaviate_collection(df)
+    
+    # # print(f"Database sample entry:\n{database[0]}")
+    # # print(f"Database size: {len(database)}")
+    print(VectorDB) 
 
 if __name__ == "__main__":
     FetchEmbedData()

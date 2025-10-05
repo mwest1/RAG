@@ -26,6 +26,12 @@ In this example the BAAI/bgp-base-en-V1.5 model will be used. This embeds entire
 
 The Embedding module creates the embedding, with the CreateEmbedding script taking two simply sentences 
 
+It is important that when embedding data, that the model is only called once, with each piece of data then passed to it. If the model is loaded every time, this will result in a very low creation of dense vectors, rendering the solution infeasible unless large compute resources are available. This is counter to the idead of this project which is to make a create a fully functional LLM for certain use cases that can be run on a laptop. 
+
+The first time the model is loaded it will be downloaded from a remote server. 
+
+
+
 ====================
 retrieval metrics
 ====================

@@ -1,20 +1,28 @@
 
 from Embedding import process_row
 from concurrent.futures import ThreadPoolExecutor
-from sentence_transformers import SentenceTransformer 
+from weaviate.classes.config import Configure
 
 
 """
 
-This is a helper function that iterates over a datframe then calls the Embbedding helper function to create the embedding of each row. 
+This is a helper function that iterates over a dataframe then calls the Embbedding helper function to create the embedding of each row. 
 
-Multi-threading is used to spead up the process, which is controlled by the 
+Multi-threading is used to spead up the process, which is controlled by the number of max_workers variable.
 
 This Vector DB is then stored in a dictionary. 
 
 """
 
-def CreateVectorDB(database, df,model):
+def CreateVectorDB(df,model):
+
+    """
+    Create a vector DB collection. 
+
+    
+    """
+
+
     """
     Create a vector database from DataFrame rows using multi-threading.
     """
@@ -23,14 +31,16 @@ def CreateVectorDB(database, df,model):
     
     print("Creating vector database...")
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        # Submit tasks for each row
-        futures = [executor.submit(process_row, index, row,model) for index, row in df.iterrows()]
+        # Submit tasks for each row, call the process_row helper function to create the embedding vector
+        futures = [executor.submit(process_row, index,row,model) for index, row in df.iterrows()]
         print(f"Submitted {len(futures)} tasks to the executor.")   
         # Collect results as they complete
+      
         for future in futures:
             index, result_dict = future.result()
             database[index] = result_dict
             count += 1
+            print(index)
             print(f"Processed row {count}")
 
     
